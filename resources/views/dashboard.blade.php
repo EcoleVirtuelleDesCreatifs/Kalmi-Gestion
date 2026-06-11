@@ -187,11 +187,11 @@
             <div class="p-4 border-t border-indigo-700">
                 <div class="flex items-center">
                     <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center font-bold">
-                        {{ substr(auth()->user()->name, 0, 1) }}
+                        {{ auth()->user() ? substr(auth()->user()->name, 0, 1) : 'U' }}
                     </div>
                     <div class="ml-3">
-                        <p class="font-medium">{{ auth()->user()->name }}</p>
-                        <p class="text-sm text-indigo-300">{{ auth()->user()->role }}</p>
+                        <p class="font-medium">{{ auth()->user() ? auth()->user()->name : 'Utilisateur' }}</p>
+                        <p class="text-sm text-indigo-300">{{ auth()->user() ? auth()->user()->role : 'Inconnu' }}</p>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" class="mt-3">
@@ -223,7 +223,7 @@
                 <div class="max-w-7xl mx-auto">
                     <!-- Welcome Section -->
                     <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg p-6 mb-6 text-white">
-                        <h1 class="text-3xl font-bold mb-2">Bienvenue, {{ auth()->user()->name }} !</h1>
+                        <h1 class="text-3xl font-bold mb-2">Bienvenue, {{ auth()->user() ? auth()->user()->name : 'Utilisateur' }} !</h1>
                         <p class="text-blue-100">Voici votre tableau de bord pour gérer votre activité commerciale.</p>
                     </div>
 

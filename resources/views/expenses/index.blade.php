@@ -26,7 +26,7 @@
                 <div class="flex items-center space-x-3">
                     <span class="text-sm">{{ now()->format('H:i') }}</span>
                     <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
-                        {{ substr(auth()->user()->name, 0, 1) }}
+                        {{ auth()->user() ? substr(auth()->user()->name, 0, 1) : 'U' }}
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                                 Tableau de bord
                             </a>
                         </li>
-                        @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                        @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                             <li>
                                 <a href="{{ route('orders.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                     <i class="fas fa-shopping-cart w-5 mr-3"></i>
@@ -76,7 +76,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if(auth()->user()->role === 'admin')
+                        @if(auth()->check() && auth()->user()->role === 'admin')
                             <li>
                                 <a href="{{ route('products.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                     <i class="fas fa-box w-5 mr-3"></i>
@@ -129,7 +129,7 @@
                             Tableau de bord
                         </a>
                     </li>
-                    @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                    @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                         <li>
                             <a href="{{ route('orders.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                 <i class="fas fa-shopping-cart w-5 mr-3"></i>
@@ -149,7 +149,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(auth()->user()->role === 'admin')
+                    @if(auth()->check() && auth()->user()->role === 'admin')
                         <li>
                             <a href="{{ route('products.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                 <i class="fas fa-box w-5 mr-3"></i>
@@ -175,11 +175,11 @@
             <div class="p-4 border-t border-indigo-700">
                 <div class="flex items-center">
                     <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center font-bold">
-                        {{ substr(auth()->user()->name, 0, 1) }}
+                        {{ auth()->user() ? substr(auth()->user()->name, 0, 1) : 'U' }}
                     </div>
                     <div class="ml-3">
-                        <p class="font-medium">{{ auth()->user()->name }}</p>
-                        <p class="text-sm text-indigo-300">{{ auth()->user()->role }}</p>
+                        <p class="font-medium">{{ auth()->user() ? auth()->user()->name : 'Utilisateur' }}</p>
+                        <p class="text-sm text-indigo-300">{{ auth()->user() ? auth()->user()->role : 'Inconnu' }}</p>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" class="mt-3">
@@ -228,7 +228,7 @@
                 </div>
 
                 <!-- Carte résumé -->
-                @if($totalExpenses > 0)
+                @if(($totalExpenses ?? 0) > 0)
                     <div class="mb-6 bg-gradient-to-r from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div>
@@ -254,24 +254,24 @@
                             <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         </div>
                         <div class="lg:w-48">
-                            <select name="category" 
+                            <select name="category"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                                 <option value="">Toutes catégories</option>
-                                @foreach($categories as $cat)
-                                    <option value="{{ $cat }}" {{ $category == $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                                @foreach($categories ?? [] as $cat)
+                                    <option value="{{ $cat }}" {{ ($category ?? '') == $cat ? 'selected' : '' }}>{{ $cat }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <button type="submit" class="px-4 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm sm:text-base inline-flex items-center justify-center">
                             <i class="fas fa-search mr-2"></i>Rechercher
                         </button>
-                        @if($query ?? false || $category ?? false)
+                        @if(($query ?? false) || ($category ?? false))
                             <a href="{{ route('expenses.index') }}" class="px-4 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition text-sm sm:text-base inline-flex items-center justify-center">
                                 <i class="fas fa-times mr-2"></i>Effacer
                             </a>
                         @endif
                     </form>
-                    @if($query ?? false || $category ?? false)
+                    @if(($query ?? false) || ($category ?? false))
                         <div class="mt-3 text-sm text-gray-600">
                             <i class="fas fa-info-circle mr-1"></i>
                             @if($query)Résultats pour : <span class="font-semibold">"{{ $query }}"</span>@endif
@@ -285,7 +285,7 @@
                 <!-- Tableau des dépenses -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="p-6">
-                        @if($expenses->count() > 0)
+                        @if(($expenses ?? collect())->count() > 0)
                             <div class="overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
@@ -300,7 +300,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach($expenses as $expense)
+                                        @foreach($expenses ?? collect() as $expense)
                                             <tr class="hover:bg-gray-50">
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                     {{ $expense->expense_date->format('d/m/Y') }}
@@ -375,7 +375,7 @@
         function toggleMobileMenu() {
             const drawer = document.getElementById('mobileMenuDrawer');
             const nav = document.getElementById('mobileMenuNav');
-            
+
             if (drawer.classList.contains('hidden')) {
                 drawer.classList.remove('hidden');
                 setTimeout(() => {
@@ -395,24 +395,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.querySelector('input[name="search"]');
             const searchForm = document.querySelector('form[method="GET"]');
-            
+
             if (searchInput && searchForm) {
                 // Focus automatique sur la recherche au chargement
                 searchInput.focus();
-                
+
                 // Recherche en temps réel (avec délai pour éviter trop de requêtes)
                 let searchTimeout;
                 searchInput.addEventListener('input', function(e) {
                     clearTimeout(searchTimeout);
                     const query = e.target.value.trim();
-                    
+
                     if (query.length >= 2 || query.length === 0) {
                         searchTimeout = setTimeout(() => {
                             searchForm.submit();
                         }, 500); // Délai de 500ms
                     }
                 });
-                
+
                 // Raccourci clavier (Ctrl/Cmd + K) pour focus sur la recherche
                 document.addEventListener('keydown', function(e) {
                     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -421,7 +421,7 @@
                         searchInput.select();
                     }
                 });
-                
+
                 // Effacer la recherche avec la touche Escape
                 searchInput.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape' && searchInput.value.trim()) {
