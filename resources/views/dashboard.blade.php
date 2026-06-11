@@ -26,7 +26,7 @@
                 <div class="flex items-center space-x-3">
                     <span class="text-sm">{{ now()->format('H:i') }}</span>
                     <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
-                        {{ substr(auth()->user()->name, 0, 1) }}
+                        {{ auth()->user() ? substr(auth()->user()->name, 0, 1) : 'U' }}
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                                 Tableau de bord
                             </a>
                         </li>
-                        @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                        @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                             <li>
                                 <a href="{{ route('orders.create') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                     <i class="fas fa-plus-circle w-5 mr-3"></i>
@@ -82,7 +82,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if(auth()->user()->role === 'admin')
+                        @if(auth()->check() && auth()->user()->role === 'admin')
                             <li>
                                 <a href="{{ route('products.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                     <i class="fas fa-box w-5 mr-3"></i>
@@ -135,7 +135,7 @@
                             Tableau de bord
                         </a>
                     </li>
-                    @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                    @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                         <li>
                             <a href="{{ route('orders.create') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                 <i class="fas fa-plus-circle w-5 mr-3"></i>
@@ -161,7 +161,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(auth()->user()->role === 'admin')
+                    @if(auth()->check() && auth()->user()->role === 'admin')
                         <li>
                             <a href="{{ route('products.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                 <i class="fas fa-box w-5 mr-3"></i>
@@ -282,7 +282,7 @@
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <h3 class="text-lg font-semibold text-gray-800 mb-4">Actions rapides</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                            @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                                 <a href="{{ route('orders.create') }}" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
                                     <i class="fas fa-plus-circle text-green-600 text-xl mr-3"></i>
                                     <span class="text-green-800 font-medium">Nouvelle vente</span>
