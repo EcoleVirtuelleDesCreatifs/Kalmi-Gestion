@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderItem;
+use App\Models\Selling;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -48,6 +48,9 @@ class ReportController extends Controller
         $totalOrders = $orders->count();
         $averageOrderValue = $totalOrders > 0 ? $totalRevenue / $totalOrders : 0;
 
+        $totalSellings = Selling::whereBetween('selling_date', [$startDate, $endDate])->sum('amount');
+        $totalSellingsCount = Selling::whereBetween('selling_date', [$startDate, $endDate])->count();
+
         return view('reports.index', compact(
             'period',
             'startDate',
@@ -56,7 +59,9 @@ class ReportController extends Controller
             'totalProfit',
             'totalOrders',
             'averageOrderValue',
-            'orders'
+            'orders',
+            'totalSellings',
+            'totalSellingsCount'
         ));
     }
 }

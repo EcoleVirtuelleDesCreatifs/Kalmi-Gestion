@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SellingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('expenses', \App\Http\Controllers\ExpenseController::class);
         Route::get('/expenses/export/pdf', [\App\Http\Controllers\ExpenseController::class, 'exportPDF'])->name('expenses.export.pdf');
         Route::get('/expenses/export/csv', [\App\Http\Controllers\ExpenseController::class, 'exportCSV'])->name('expenses.export.csv');
+        Route::resource('sellings', SellingController::class);
     });
 
     Route::middleware('admin')->group(function () {

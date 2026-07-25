@@ -16,6 +16,9 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                        <x-nav-link :href="route('sellings.index')" :active="request()->routeIs('sellings.index')">
+                            {{ __('Selling') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('orders.create')" :active="request()->routeIs('orders.create')">
                             {{ __('Nouvelle Vente') }}
                         </x-nav-link>
@@ -96,6 +99,9 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if(auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                <x-responsive-nav-link :href="route('sellings.index')" :active="request()->routeIs('sellings.index')">
+                    {{ __('Selling') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('orders.create')" :active="request()->routeIs('orders.create')">
                     {{ __('Nouvelle Vente') }}
                 </x-responsive-nav-link>

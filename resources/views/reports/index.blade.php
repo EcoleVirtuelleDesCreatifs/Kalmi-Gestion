@@ -75,6 +75,13 @@
 
                         @if (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
                             <li>
+                                <a href="{{ route('sellings.index') }}"
+                                    class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('sellings.index') ? 'bg-indigo-700' : 'hover:bg-indigo-700' }} transition">
+                                    <i class="fas fa-cash-register w-5 mr-3"></i>
+                                    Selling
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('orders.create') }}"
                                     class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('orders.create') ? 'bg-indigo-700' : 'hover:bg-indigo-700' }} transition">
                                     <i class="fas fa-plus-circle w-5 mr-3"></i>
@@ -163,6 +170,13 @@
                     </li>
 
                     @if (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin')
+                        <li>
+                            <a href="{{ route('sellings.index') }}"
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('sellings.index') ? 'bg-indigo-700' : 'hover:bg-indigo-700' }} transition">
+                                <i class="fas fa-cash-register w-5 mr-3"></i>
+                                Selling
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ route('orders.create') }}"
                                 class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('orders.create') ? 'bg-indigo-700' : 'hover:bg-indigo-700' }} transition">

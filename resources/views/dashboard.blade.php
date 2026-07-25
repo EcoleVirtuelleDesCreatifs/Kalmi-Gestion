@@ -58,6 +58,12 @@
                         </li>
                         @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                             <li>
+                                <a href="{{ route('sellings.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
+                                    <i class="fas fa-cash-register w-5 mr-3"></i>
+                                    Selling
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('orders.create') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                     <i class="fas fa-plus-circle w-5 mr-3"></i>
                                     Nouvelle Vente
@@ -136,6 +142,12 @@
                         </a>
                     </li>
                     @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
+                        <li>
+                            <a href="{{ route('sellings.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fas fa-cash-register w-5 mr-3"></i>
+                                Selling
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ route('orders.create') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                 <i class="fas fa-plus-circle w-5 mr-3"></i>
@@ -232,8 +244,8 @@
                         <div class="bg-white rounded-xl shadow-lg p-6">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm text-gray-600 mb-1">Ventes du jour</p>
-                                    <p class="text-2xl font-bold text-gray-800">0</p>
+                                    <p class="text-sm text-gray-600 mb-1">Selling du jour</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{ number_format($totalSellings ?? 0, 2, ',', ' ') }} FCFA</p>
                                 </div>
                                 <div class="text-3xl text-green-500">
                                     <i class="fas fa-shopping-cart"></i>
@@ -268,8 +280,8 @@
                         <div class="bg-white rounded-xl shadow-lg p-6">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm text-gray-600 mb-1">Produits</p>
-                                    <p class="text-2xl font-bold text-gray-800">0</p>
+                                    <p class="text-sm text-gray-600 mb-1">Nb ventes</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $totalSellingsCount ?? 0 }}</p>
                                 </div>
                                 <div class="text-3xl text-purple-500">
                                     <i class="fas fa-box"></i>
@@ -283,6 +295,14 @@
                         <h3 class="text-lg font-semibold text-gray-800 mb-4">Actions rapides</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
+                                <a href="{{ route('sellings.create') }}" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
+                                    <i class="fas fa-cash-register text-green-600 text-xl mr-3"></i>
+                                    <span class="text-green-800 font-medium">Nouveau Selling</span>
+                                </a>
+                                <a href="{{ route('sellings.index') }}" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                    <i class="fas fa-list text-blue-600 text-xl mr-3"></i>
+                                    <span class="text-blue-800 font-medium">Voir le Selling</span>
+                                </a>
                                 <a href="{{ route('orders.create') }}" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
                                     <i class="fas fa-plus-circle text-green-600 text-xl mr-3"></i>
                                     <span class="text-green-800 font-medium">Nouvelle vente</span>

@@ -58,6 +58,12 @@
                         </li>
                         @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
                             <li>
+                                <a href="{{ route('sellings.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
+                                    <i class="fas fa-cash-register w-5 mr-3"></i>
+                                    Selling
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('orders.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                     <i class="fas fa-shopping-cart w-5 mr-3"></i>
                                     Ventes
@@ -130,6 +136,12 @@
                         </a>
                     </li>
                     @if(auth()->check() && (auth()->user()->role === 'vendeur' || auth()->user()->role === 'admin'))
+                        <li>
+                            <a href="{{ route('sellings.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fas fa-cash-register w-5 mr-3"></i>
+                                Selling
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ route('orders.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 transition">
                                 <i class="fas fa-shopping-cart w-5 mr-3"></i>
