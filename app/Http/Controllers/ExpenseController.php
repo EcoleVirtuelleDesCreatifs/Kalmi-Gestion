@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExpenseController extends Controller
 {
@@ -172,7 +172,7 @@ class ExpenseController extends Controller
 
         $totalExpenses = $expenses->sum('amount');
 
-        $pdf = PDF::loadView('expenses.pdf', compact('expenses', 'totalExpenses', 'query', 'category'));
+        $pdf = Pdf::loadView('expenses.pdf', compact('expenses', 'totalExpenses', 'query', 'category'));
 
         return $pdf->download('depenses_' . now()->format('Y-m-d') . '.pdf');
     }

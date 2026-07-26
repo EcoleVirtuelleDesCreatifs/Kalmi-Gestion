@@ -9,7 +9,7 @@ use App\Models\Delivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -258,7 +258,7 @@ class OrderController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $pdf = PDF::loadView('orders.pdf', compact('orders'));
+        $pdf = Pdf::loadView('orders.pdf', compact('orders'));
 
         return $pdf->download('commandes_' . date('Y-m-d_H-i-s') . '.pdf');
     }

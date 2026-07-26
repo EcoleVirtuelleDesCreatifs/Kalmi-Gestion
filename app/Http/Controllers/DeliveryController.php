@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Delivery;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DeliveryController extends Controller
 {
@@ -62,7 +62,7 @@ class DeliveryController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
-        $pdf = PDF::loadView('deliveries.daily-sheet', compact('deliveries', 'date'));
+        $pdf = Pdf::loadView('deliveries.daily-sheet', compact('deliveries', 'date'));
 
         return $pdf->download('fiche_livraison_' . $date . '.pdf');
     }
