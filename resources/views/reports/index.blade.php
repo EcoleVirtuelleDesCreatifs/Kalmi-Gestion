@@ -305,8 +305,8 @@
                     </div>
                 </div>
 
-                <!-- Statistics Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-4">
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-6">
                     <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-blue-500">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
@@ -327,68 +327,10 @@
                                 <p class="text-gray-500 text-xs sm:text-sm font-medium">Bénéfice Brut</p>
                                 <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
                                     {{ number_format($totalProfit, 2) }} FCFA</p>
-                                <p class="text-xs text-gray-400 mt-1">Marge totale</p>
+                                <p class="text-xs text-gray-400 mt-1">Marge sur ventes</p>
                             </div>
                             <div class="w-10 h-10 lg:w-12 lg:h-12 bg-green-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
                                 <i class="fas fa-chart-line text-green-600 text-lg lg:text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-purple-500">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Commandes</p>
-                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ $totalOrders }}</p>
-                                <p class="text-xs text-gray-400 mt-1">Total ventes</p>
-                            </div>
-                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
-                                <i class="fas fa-shopping-bag text-purple-600 text-lg lg:text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-orange-500">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Panier Moyen</p>
-                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ number_format($averageOrderValue, 2) }} FCFA</p>
-                                <p class="text-xs text-gray-400 mt-1">Par commande</p>
-                            </div>
-                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-orange-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
-                                <i class="fas fa-receipt text-orange-600 text-lg lg:text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-teal-500">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Produits Disponibles</p>
-                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ $totalProducts }}</p>
-                                <p class="text-xs text-gray-400 mt-1">Total produits</p>
-                            </div>
-                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-teal-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
-                                <i class="fas fa-box text-teal-600 text-lg lg:text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
-                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-pink-500">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Selling</p>
-                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ number_format($totalSellings, 2) }} FCFA</p>
-                                <p class="text-xs text-gray-400 mt-1">{{ $totalSellingsCount }} ventes</p>
-                            </div>
-                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-pink-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
-                                <i class="fas fa-cash-register text-pink-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
                     </div>
@@ -407,16 +349,16 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-indigo-500">
+                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-pink-500">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
-                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Livraisons</p>
+                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Selling</p>
                                 <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ $totalDeliveries }}</p>
-                                <p class="text-xs text-gray-400 mt-1">Nombre</p>
+                                    {{ number_format($totalSellings, 2) }} FCFA</p>
+                                <p class="text-xs text-gray-400 mt-1">{{ $totalSellingsCount }} ventes</p>
                             </div>
-                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-indigo-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
-                                <i class="fas fa-truck text-indigo-600 text-lg lg:text-xl"></i>
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-pink-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                                <i class="fas fa-cash-register text-pink-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
                     </div>
