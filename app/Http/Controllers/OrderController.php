@@ -129,6 +129,129 @@ class OrderController extends Controller
         return view('orders.show', compact('order'));
     }
 
+    public function edit(Order $order)
+    {
+        $order->load(['orderItems.product', 'delivery']);
+        $products = Product::with('category')
+            ->orderBy('name')
+            ->get();
+
+        return view('orders.edit', compact('order', 'products'));
+    }
+
+    public function update(Request $request, Order $order)
+    {
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.product_id' => 'required|exists:products,id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'customer_name' => 'nullable|string|max:255',
+            'customer_phone' => 'nullable|string|regex:/^[0-9]{10}$/',
+            'delivery_address' => 'nullable|string',
+            'requires_delivery' => 'nullable|boolean',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $oldItems = $order->orderItems;
+
+            // Restocker les anciens produits
+            foreach ($oldItems as $oldItem) {
+                $product = Product::lockForUpdate()->find($oldItem->product_id);
+                if ($product) {
+                    $product->stock_quantity += $oldItem->quantity;
+                    $product->save();
+                }
+            }
+
+            $totalAmount = 0;
+            $newOrderItems = [];
+
+            foreach ($request->items as $item) {
+                $product = Product::lockForUpdate()->find($item['product_id']);
+
+                if (!$product) {
+                    DB::rollBack();
+                    return back()->with('error', 'Produit non trouvé');
+                }
+
+                if ($product->stock_quantity < $item['quantity']) {
+                    DB::rollBack();
+                    return back()->with('error', "Stock insuffisant pour {$product->name}. Disponible: {$product->stock_quantity}, Demandé: {$item['quantity']}");
+                }
+
+                $unitPrice = $product->selling_price;
+                $itemTotal = $unitPrice * $item['quantity'];
+                $totalAmount += $itemTotal;
+
+                $newOrderItems[] = [
+                    'product_id' => $product->id,
+                    'quantity' => $item['quantity'],
+                    'unit_price' => $unitPrice,
+                    'purchase_price_snap' => $product->purchase_price,
+                ];
+
+                $product->stock_quantity -= $item['quantity'];
+                $product->save();
+            }
+
+            $order->update([
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
+                'total_amount' => $totalAmount,
+            ]);
+
+            $order->orderItems()->delete();
+
+            foreach ($newOrderItems as $item) {
+                $order->orderItems()->create($item);
+            }
+
+            if ($request->requires_delivery && $request->delivery_address) {
+                $order->delivery()->updateOrCreate(
+                    ['order_id' => $order->id],
+                    ['status' => 'en_attente', 'delivery_address' => $request->delivery_address]
+                );
+            } else {
+                $order->delivery()->delete();
+            }
+
+            DB::commit();
+
+            return redirect()->route('orders.show', $order)->with('success', 'Commande mise à jour avec succès');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Erreur lors de la mise à jour de la commande: ' . $e->getMessage());
+        }
+    }
+
+    public function destroy(Order $order)
+    {
+        DB::beginTransaction();
+
+        try {
+            foreach ($order->orderItems as $item) {
+                $product = Product::lockForUpdate()->find($item->product_id);
+                if ($product) {
+                    $product->stock_quantity += $item->quantity;
+                    $product->save();
+                }
+            }
+
+            $order->orderItems()->delete();
+            $order->delivery()->delete();
+            $order->delete();
+
+            DB::commit();
+
+            return redirect()->route('orders.index')->with('success', 'Commande supprimée avec succès');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Erreur lors de la suppression de la commande: ' . $e->getMessage());
+        }
+    }
+
     public function exportPDF()
     {
         $orders = Order::with(['user', 'orderItems.product', 'delivery'])

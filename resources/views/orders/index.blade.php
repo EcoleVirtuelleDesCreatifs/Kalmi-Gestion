@@ -366,9 +366,21 @@
                                                 @endif
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <a href="{{ route('orders.show', $order) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">
-                                                    <i class="fas fa-eye mr-1"></i>Voir
-                                                </a>
+                                                <div class="flex items-center gap-3">
+                                                    <a href="{{ route('orders.show', $order) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">
+                                                        <i class="fas fa-eye mr-1"></i>Voir
+                                                    </a>
+                                                    <a href="{{ route('orders.edit', $order) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">
+                                                        <i class="fas fa-edit mr-1"></i>Modifier
+                                                    </a>
+                                                    <form method="POST" action="{{ route('orders.destroy', $order) }}" class="inline" onsubmit="return confirm('Confirmer la suppression de cette commande ?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-600 hover:text-red-900 font-medium bg-transparent border-0 p-0 cursor-pointer">
+                                                            <i class="fas fa-trash mr-1"></i>Supprimer
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

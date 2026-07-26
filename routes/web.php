@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ReportController::class, 'dashboard'])->name('dashboard');
 
     Route::middleware('vendeur')->group(function () {
-        Route::resource('orders', OrderController::class)->only(['index', 'create', 'store', 'show']);
+        Route::resource('orders', OrderController::class);
         Route::get('/orders/export/pdf', [OrderController::class, 'exportPDF'])->name('orders.export.pdf');
         Route::get('/orders/export/csv', [OrderController::class, 'exportCSV'])->name('orders.export.csv');
         Route::resource('deliveries', DeliveryController::class)->only(['index']);
