@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard - Kalmi Gestion</title>
+    <title>Rapports - Kalmi Gestion</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -259,7 +259,7 @@
             <!-- Desktop Top Bar -->
             <header class="hidden lg:block bg-white shadow-sm px-6 py-4">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+                    <h2 class="text-2xl font-bold text-gray-800">Rapports</h2>
                     <div class="flex items-center space-x-4">
                         <span class="text-gray-600">{{ now()->format('d/m/Y H:i') }}</span>
                         <a href="{{ route('profile.edit') }}" class="text-gray-600 hover:text-gray-900">
@@ -272,7 +272,7 @@
             <!-- Mobile Top Bar (simplified) -->
             <header class="lg:hidden bg-white shadow-sm px-4 py-3">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-bold text-gray-800">Tableau de Bord</h2>
+                    <h2 class="text-lg font-bold text-gray-800">Rapports</h2>
                     <a href="{{ route('profile.edit') }}" class="text-gray-600 hover:text-gray-900">
                         <i class="fas fa-user-circle text-xl"></i>
                     </a>
@@ -284,19 +284,19 @@
                 <!-- Period Selector -->
                 <div class="mb-4 sm:mb-6">
                     <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
-                        <a href="{{ route('dashboard', ['period' => 'daily']) }}"
+                        <a href="{{ route('reports.index', ['period' => 'daily']) }}"
                             class="px-3 py-2 sm:px-4 rounded-lg text-sm sm:text-base {{ $period === 'daily' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }} transition shadow">
                             <i class="fas fa-calendar-day mr-1 sm:mr-2"></i>
                             <span class="hidden sm:inline">Journalier</span>
                             <span class="sm:hidden">Jour</span>
                         </a>
-                        <a href="{{ route('dashboard', ['period' => 'monthly']) }}"
+                        <a href="{{ route('reports.index', ['period' => 'monthly']) }}"
                             class="px-3 py-2 sm:px-4 rounded-lg text-sm sm:text-base {{ $period === 'monthly' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }} transition shadow">
                             <i class="fas fa-calendar-alt mr-1 sm:mr-2"></i>
                             <span class="hidden sm:inline">Mensuel</span>
                             <span class="sm:hidden">Mois</span>
                         </a>
-                        <a href="{{ route('dashboard', ['period' => 'yearly']) }}"
+                        <a href="{{ route('reports.index', ['period' => 'yearly']) }}"
                             class="px-3 py-2 sm:px-4 rounded-lg text-sm sm:text-base {{ $period === 'yearly' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }} transition shadow">
                             <i class="fas fa-calendar mr-1 sm:mr-2"></i>
                             <span class="hidden sm:inline">Annuel</span>
@@ -386,6 +386,64 @@
                     </div>
                 </div>
 
+                <!-- Additional Statistics -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-pink-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Selling</p>
+                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
+                                    {{ number_format($totalSellings, 2) }} FCFA</p>
+                                <p class="text-xs text-gray-400 mt-1">{{ $totalSellingsCount }} ventes</p>
+                            </div>
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-pink-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                                <i class="fas fa-cash-register text-pink-600 text-lg lg:text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-red-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Dépenses</p>
+                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
+                                    {{ number_format($totalExpenses, 2) }} FCFA</p>
+                                <p class="text-xs text-gray-400 mt-1">Période</p>
+                            </div>
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-red-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                                <i class="fas fa-money-bill-wave text-red-600 text-lg lg:text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-indigo-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Livraisons</p>
+                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
+                                    {{ $totalDeliveries }}</p>
+                                <p class="text-xs text-gray-400 mt-1">Nombre</p>
+                            </div>
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-indigo-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                                <i class="fas fa-truck text-indigo-600 text-lg lg:text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-emerald-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Bénéfice Net</p>
+                                <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
+                                    {{ number_format($netProfit, 2) }} FCFA</p>
+                                <p class="text-xs text-gray-400 mt-1">Après dépenses</p>
+                            </div>
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-emerald-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                                <i class="fas fa-coins text-emerald-600 text-lg lg:text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Recent Orders & Stock Alerts -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">

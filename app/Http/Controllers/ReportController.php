@@ -53,6 +53,11 @@ class ReportController extends Controller
         $totalSellings = Selling::whereBetween('selling_date', [$startDate, $endDate])->sum('amount');
         $totalSellingsCount = Selling::whereBetween('selling_date', [$startDate, $endDate])->count();
 
+        $totalExpenses = Expense::whereBetween('expense_date', [$startDate, $endDate])->sum('amount');
+        $totalDeliveries = Delivery::whereBetween('created_at', [$startDate, $endDate])->count();
+
+        $netProfit = $totalProfit - $totalExpenses;
+
         return view('reports.index', compact(
             'period',
             'startDate',
@@ -63,7 +68,10 @@ class ReportController extends Controller
             'averageOrderValue',
             'orders',
             'totalSellings',
-            'totalSellingsCount'
+            'totalSellingsCount',
+            'totalExpenses',
+            'totalDeliveries',
+            'netProfit'
         ));
     }
 
