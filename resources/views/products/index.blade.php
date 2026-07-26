@@ -322,7 +322,7 @@
                                                 <a href="{{ route('products.edit', $product) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">
                                                     <i class="fas fa-edit mr-1"></i>Modifier
                                                 </a>
-                                                <form method="POST" action="{{ route('products.destroy', $product) }}" class="inline" onsubmit="return confirm('Supprimer ce produit?')">
+                                                <form method="POST" action="{{ route('products.destroy', $product) }}" class="inline" onsubmit="showGlobalLoader(); return true;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900">

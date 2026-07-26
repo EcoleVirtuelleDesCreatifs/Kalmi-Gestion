@@ -50,7 +50,7 @@
                             <a href="{{ route('sellings.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrow-left mr-2"></i> Retour</a>
                             <div class="flex gap-2">
                                 <a href="{{ route('sellings.edit', $selling) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"><i class="fas fa-edit mr-2"></i> Modifier</a>
-                                <form method="POST" action="{{ route('sellings.destroy', $selling) }}" onsubmit="return confirm('Êtes-vous sûr?')">
+                                <form method="POST" action="{{ route('sellings.destroy', $selling) }}" onsubmit="showGlobalLoader(); return true;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"><i class="fas fa-trash mr-2"></i> Supprimer</button>

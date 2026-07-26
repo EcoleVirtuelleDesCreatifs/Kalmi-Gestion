@@ -186,7 +186,7 @@
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $selling->user->name ?? 'Inconnu' }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                     <a href="{{ route('sellings.edit', $selling) }}" class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-edit"></i></a>
-                                                    <form method="POST" action="{{ route('sellings.destroy', $selling) }}" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette vente?')">
+                                                    <form method="POST" action="{{ route('sellings.destroy', $selling) }}" class="inline" onsubmit="showGlobalLoader(); return true;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>

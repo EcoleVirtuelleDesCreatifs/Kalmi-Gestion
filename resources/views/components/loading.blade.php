@@ -12,6 +12,8 @@
             loader.classList.add('flex');
         }
 
+        window.showGlobalLoader = showLoader;
+
         window.addEventListener('beforeunload', showLoader);
 
         document.querySelectorAll('a[href], button[type="submit"]').forEach(function (el) {

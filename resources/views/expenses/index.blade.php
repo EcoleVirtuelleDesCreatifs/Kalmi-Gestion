@@ -344,7 +344,7 @@
                                                     <a href="{{ route('expenses.edit', $expense) }}" class="text-blue-600 hover:text-blue-900 mr-3">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form method="POST" action="{{ route('expenses.destroy', $expense) }}" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette dépense?')">
+                                                    <form method="POST" action="{{ route('expenses.destroy', $expense) }}" class="inline" onsubmit="showGlobalLoader(); return true;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900">

@@ -373,7 +373,7 @@
                                                     <a href="{{ route('orders.edit', $order) }}" class="text-yellow-600 hover:text-yellow-900 font-medium">
                                                         <i class="fas fa-edit mr-1"></i>Modifier
                                                     </a>
-                                                    <form method="POST" action="{{ route('orders.destroy', $order) }}" class="inline" onsubmit="return confirm('Confirmer la suppression de cette commande ?');">
+                                                    <form method="POST" action="{{ route('orders.destroy', $order) }}" class="inline" onsubmit="showGlobalLoader(); return true;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900 font-medium bg-transparent border-0 p-0 cursor-pointer">

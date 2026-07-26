@@ -288,7 +288,7 @@
                                                 <a href="{{ route('categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">
                                                     <i class="fas fa-edit mr-1"></i>Modifier
                                                 </a>
-                                                <form method="POST" action="{{ route('categories.destroy', $category) }}" class="inline" onsubmit="return confirm('Supprimer cette catégorie?')">
+                                                <form method="POST" action="{{ route('categories.destroy', $category) }}" class="inline" onsubmit="showGlobalLoader(); return true;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900">
