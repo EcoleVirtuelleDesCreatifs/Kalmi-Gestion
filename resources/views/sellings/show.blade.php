@@ -32,6 +32,10 @@
                                 <p class="text-sm text-gray-500">Montant</p>
                                 <p class="text-lg font-semibold text-green-600">{{ number_format($selling->amount, 2, ',', ' ') }} FCFA</p>
                             </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Produit</p>
+                                <p class="text-lg font-semibold text-gray-800">{{ $selling->product->name ?? 'Aucun' }}</p>
+                            </div>
                             <div class="md:col-span-2">
                                 <p class="text-sm text-gray-500">Notes</p>
                                 <p class="text-gray-800">{{ $selling->notes ?? 'Aucune note' }}</p>

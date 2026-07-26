@@ -10,7 +10,8 @@ class Selling extends Model
         'amount',
         'selling_date',
         'notes',
-        'user_id'
+        'user_id',
+        'product_id'
     ];
 
     protected $casts = [
@@ -21,5 +22,10 @@ class Selling extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

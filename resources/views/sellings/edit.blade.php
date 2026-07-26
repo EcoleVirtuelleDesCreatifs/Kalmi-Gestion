@@ -41,6 +41,17 @@
                                 @error('amount')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                             </div>
 
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Produit (optionnel)</label>
+                                <select name="product_id" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                    <option value="">-- Aucun produit --</option>
+                                    @foreach($products as $product)
+                                        <option value="{{ $product->id }}" {{ old('product_id', $selling->product_id) == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('product_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                            </div>
+
                             <div class="mb-6">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Notes (optionnel)</label>
                                 <textarea name="notes" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">{{ old('notes', $selling->notes) }}</textarea>

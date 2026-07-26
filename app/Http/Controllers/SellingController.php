@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Selling;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class SellingController extends Controller
     {
         $query = $request->input('search');
 
-        $sellings = Selling::with('user')
+        $sellings = Selling::with(['user', 'product'])
             ->when($query, function($q) use ($query) {
                 $q->where('notes', 'like', "%{$query}%");
             })
@@ -27,7 +28,8 @@ class SellingController extends Controller
 
     public function create()
     {
-        return view('sellings.create');
+        $products = Product::orderBy('name')->get();
+        return view('sellings.create', compact('products'));
     }
 
     public function store(Request $request)
@@ -35,12 +37,14 @@ class SellingController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:0',
             'selling_date' => 'required|date',
+            'product_id' => 'nullable|exists:products,id',
             'notes' => 'nullable|string'
         ]);
 
         Selling::create([
             'amount' => $request->amount,
             'selling_date' => $request->selling_date,
+            'product_id' => $request->product_id,
             'notes' => $request->notes,
             'user_id' => auth()->id()
         ]);
@@ -56,7 +60,8 @@ class SellingController extends Controller
 
     public function edit(Selling $selling)
     {
-        return view('sellings.edit', compact('selling'));
+        $products = Product::orderBy('name')->get();
+        return view('sellings.edit', compact('selling', 'products'));
     }
 
     public function update(Request $request, Selling $selling)
@@ -64,12 +69,14 @@ class SellingController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:0',
             'selling_date' => 'required|date',
+            'product_id' => 'nullable|exists:products,id',
             'notes' => 'nullable|string'
         ]);
 
         $selling->update([
             'amount' => $request->amount,
             'selling_date' => $request->selling_date,
+            'product_id' => $request->product_id,
             'notes' => $request->notes
         ]);
 

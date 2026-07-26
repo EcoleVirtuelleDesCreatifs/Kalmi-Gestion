@@ -171,6 +171,7 @@
                                     <thead class="bg-gray-50">
                                         <tr>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produit</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Utilisateur</th>
@@ -181,6 +182,7 @@
                                         @foreach($sellings ?? collect() as $selling)
                                             <tr class="hover:bg-gray-50">
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $selling->selling_date->format('d/m/Y') }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $selling->product->name ?? '-' }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600">{{ number_format($selling->amount, 2, ',', ' ') }} FCFA</td>
                                                 <td class="px-6 py-4 text-sm text-gray-900">{{ $selling->notes ?? '-' }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $selling->user->name ?? 'Inconnu' }}</td>
