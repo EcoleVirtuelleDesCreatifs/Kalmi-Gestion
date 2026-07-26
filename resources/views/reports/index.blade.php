@@ -451,6 +451,39 @@
                     </div>
                 </div>
 
+                <!-- Recent Expenses -->
+                <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-money-bill-wave text-red-500 mr-2"></i>Dépenses Récentes
+                    </h3>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
+                                <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Montant</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Utilisateur</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @if ($recentExpenses->count() > 0)
+                                @foreach ($recentExpenses as $expense)
+                                    <tr>
+                                        <td class="px-4 py-2 text-sm text-gray-900">{{ $expense->expense_date ? $expense->expense_date->format('d/m/Y') : '-' }}</td>
+                                        <td class="px-4 py-2 text-sm text-gray-900">{{ $expense->description }}</td>
+                                        <td class="px-4 py-2 text-sm text-gray-500">{{ $expense->category }}</td>
+                                        <td class="px-4 py-2 text-sm text-right font-medium">{{ number_format($expense->amount, 2) }} FCFA</td>
+                                        <td class="px-4 py-2 text-sm text-gray-500">{{ $expense->user->name ?? '-' }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr><td colspan="5" class="px-4 py-4 text-center text-gray-500">Aucune dépense pour cette période</td></tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
                 <!-- Top Products & Alerts -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">

@@ -74,6 +74,12 @@ class ReportController extends Controller
             ->take(10)
             ->get();
 
+        $recentExpenses = Expense::with('user')
+            ->whereBetween('expense_date', [$startDate, $endDate])
+            ->orderBy('expense_date', 'desc')
+            ->take(10)
+            ->get();
+
         $lowStockProducts = Product::with('category')
             ->whereColumn('stock_quantity', '<=', 'alert_threshold')
             ->get();
@@ -165,6 +171,7 @@ class ReportController extends Controller
             'totalProducts',
             'recentOrders',
             'recentSellings',
+            'recentExpenses',
             'lowStockProducts',
             'salesByCategory',
             'topProducts',
