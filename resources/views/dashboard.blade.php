@@ -256,11 +256,11 @@
                         <div class="bg-white rounded-xl shadow-lg p-6">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm text-gray-600 mb-1">Livraisons</p>
-                                    <p class="text-2xl font-bold text-gray-800">{{ $totalDeliveries ?? 0 }}</p>
+                                    <p class="text-sm text-gray-600 mb-1">Vente totale</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $totalOrders ?? 0 }}</p>
                                 </div>
                                 <div class="text-3xl text-blue-500">
-                                    <i class="fas fa-truck"></i>
+                                    <i class="fas fa-shopping-cart"></i>
                                 </div>
                             </div>
                         </div>
