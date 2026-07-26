@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [ReportController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [ReportController::class, 'dashboard'])->name('dashboard');
 
     Route::middleware('vendeur')->group(function () {
         Route::resource('orders', OrderController::class)->only(['index', 'create', 'store', 'show']);

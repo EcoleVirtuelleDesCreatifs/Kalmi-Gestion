@@ -257,7 +257,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-sm text-gray-600 mb-1">Livraisons</p>
-                                    <p class="text-2xl font-bold text-gray-800">0</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{ $totalDeliveries ?? 0 }}</p>
                                 </div>
                                 <div class="text-3xl text-blue-500">
                                     <i class="fas fa-truck"></i>
@@ -269,7 +269,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-sm text-gray-600 mb-1">Dépenses</p>
-                                    <p class="text-2xl font-bold text-gray-800">0</p>
+                                    <p class="text-2xl font-bold text-gray-800">{{ number_format($totalExpenses ?? 0, 2, ',', ' ') }} FCFA</p>
                                 </div>
                                 <div class="text-3xl text-red-500">
                                     <i class="fas fa-money-bill-wave"></i>
