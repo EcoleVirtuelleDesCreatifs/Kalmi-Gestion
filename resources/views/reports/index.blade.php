@@ -306,19 +306,16 @@
                 </div>
 
                 <!-- Statistics Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-6 lg:mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6 mb-4">
                     <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-blue-500">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
                                 <p class="text-gray-500 text-xs sm:text-sm font-medium">Chiffre d'Affaires</p>
                                 <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ number_format($totalRevenue, 2) }}
-                                    FCFA</p>
-                                <p class="text-xs text-gray-400 mt-1">{{ $startDate->format('d/m/Y') }} -
-                                    {{ $endDate->format('d/m/Y') }}</p>
+                                    {{ number_format($totalRevenue, 2) }} FCFA</p>
+                                <p class="text-xs text-gray-400 mt-1">{{ $startDate->format('d/m/Y') }} - {{ $endDate->format('d/m/Y') }}</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-blue-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-blue-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
                                 <i class="fas fa-money-bill-wave text-blue-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
@@ -327,14 +324,12 @@
                     <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-green-500">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
-                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Bénéfice Réel</p>
+                                <p class="text-gray-500 text-xs sm:text-sm font-medium">Bénéfice Brut</p>
                                 <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ number_format($totalProfit, 2) }}
-                                    FCFA</p>
+                                    {{ number_format($totalProfit, 2) }} FCFA</p>
                                 <p class="text-xs text-gray-400 mt-1">Marge totale</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-green-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-green-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
                                 <i class="fas fa-chart-line text-green-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
@@ -348,8 +343,7 @@
                                     {{ $totalOrders }}</p>
                                 <p class="text-xs text-gray-400 mt-1">Total ventes</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
                                 <i class="fas fa-shopping-bag text-purple-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
@@ -363,8 +357,7 @@
                                     {{ number_format($averageOrderValue, 2) }} FCFA</p>
                                 <p class="text-xs text-gray-400 mt-1">Par commande</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-orange-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-orange-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
                                 <i class="fas fa-receipt text-orange-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
@@ -375,19 +368,17 @@
                             <div class="flex-1">
                                 <p class="text-gray-500 text-xs sm:text-sm font-medium">Produits Disponibles</p>
                                 <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mt-1 lg:mt-2">
-                                    {{ App\Models\Product::count() }}</p>
+                                    {{ $totalProducts }}</p>
                                 <p class="text-xs text-gray-400 mt-1">Total produits</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-teal-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
+                            <div class="w-10 h-10 lg:w-12 lg:h-12 bg-teal-100 rounded-full flex items-center justify-center ml-2 lg:ml-4">
                                 <i class="fas fa-box text-teal-600 text-lg lg:text-xl"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Additional Statistics -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6">
                     <div class="bg-white rounded-xl shadow-lg p-4 lg:p-6 border-l-4 border-pink-500">
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
@@ -445,65 +436,125 @@
                     </div>
                 </div>
 
-                <!-- Recent Orders & Stock Alerts -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Recent Orders -->
-                    <div class="bg-white rounded-xl shadow-lg p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Commandes Récentes</h3>
-                        <div class="space-y-3">
-                            @php
-                                $recentOrders = \App\Models\Order::with('user')
-                                    ->orderBy('created_at', 'desc')
-                                    ->take(5)
-                                    ->get();
-                            @endphp
-                            @if ($recentOrders->count() > 0)
-                                @foreach ($recentOrders as $order)
-                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                        <div>
-                                            <p class="font-medium text-gray-800">{{ $order->invoice_number }}</p>
-                                            <p class="text-sm text-gray-500">{{ $order->user->name }}</p>
-                                        </div>
-                                        <div class="text-right">
-                                            <p class="font-semibold text-gray-800">
-                                                {{ number_format($order->total_amount, 2) }} FCFA</p>
-                                            <p class="text-xs text-gray-400">
-                                                {{ $order->created_at->format('d/m/Y H:i') }}</p>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @else
-                                <p class="text-gray-500 text-center py-4">Aucune commande récente</p>
-                            @endif
+                <!-- Revenue & Category Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Évolution du Chiffre d'Affaires et du Bénéfice</h3>
+                        <div class="relative h-72">
+                            <canvas id="revenueChart"></canvas>
                         </div>
                     </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Ventes par Catégorie</h3>
+                        <div class="relative h-72">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Stock Alerts -->
+                <!-- Recent Orders & Sellings -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Commandes Récentes</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">N°</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Client</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Montant</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @if ($recentOrders->count() > 0)
+                                    @foreach ($recentOrders as $order)
+                                        <tr>
+                                            <td class="px-4 py-2 text-sm text-gray-900">{{ $order->invoice_number }}</td>
+                                            <td class="px-4 py-2 text-sm text-gray-500">{{ $order->user->name ?? '-' }}</td>
+                                            <td class="px-4 py-2 text-sm text-right font-medium">{{ number_format($order->total_amount, 2) }} FCFA</td>
+                                            <td class="px-4 py-2 text-sm text-right text-gray-400">{{ $order->created_at->format('d/m/Y H:i') }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td colspan="4" class="px-4 py-4 text-center text-gray-500">Aucune commande</td></tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Ventes Selling Récentes</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Utilisateur</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Montant</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @if ($recentSellings->count() > 0)
+                                    @foreach ($recentSellings as $selling)
+                                        <tr>
+                                            <td class="px-4 py-2 text-sm text-gray-900">{{ $selling->user->name ?? '-' }}</td>
+                                            <td class="px-4 py-2 text-sm text-right font-medium">{{ number_format($selling->amount, 2) }} FCFA</td>
+                                            <td class="px-4 py-2 text-sm text-right text-gray-400">{{ $selling->selling_date ? $selling->selling_date->format('d/m/Y') : '-' }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td colspan="3" class="px-4 py-4 text-center text-gray-500">Aucune vente</td></tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Top Products & Alerts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Top Produits</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Produit</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Qté</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">CA</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Bénéfice</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                @if ($topProducts->count() > 0)
+                                    @foreach ($topProducts as $product)
+                                        <tr>
+                                            <td class="px-4 py-2 text-sm text-gray-900">{{ $product->name }}</td>
+                                            <td class="px-4 py-2 text-sm text-right">{{ number_format($product->total_qty) }}</td>
+                                            <td class="px-4 py-2 text-sm text-right font-medium">{{ number_format($product->total_revenue, 2) }} FCFA</td>
+                                            <td class="px-4 py-2 text-sm text-right font-medium">{{ number_format($product->total_profit, 2) }} FCFA</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr><td colspan="4" class="px-4 py-4 text-center text-gray-500">Aucune vente</td></tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+
                     @if (auth()->user()->role === 'admin')
-                        @php
-                            $lowStockProducts = \App\Models\Product::with('category')
-                                ->whereColumn('stock_quantity', '<=', 'alert_threshold')
-                                ->get();
-                        @endphp
                         <div class="bg-white rounded-xl shadow-lg p-6">
                             <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
-                                Alertes de Stock
+                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>Alertes de Stock
                             </h3>
                             @if ($lowStockProducts->count() > 0)
                                 <div class="space-y-3">
                                     @foreach ($lowStockProducts as $product)
-                                        <div
-                                            class="flex items-center justify-between p-3 bg-red-50 rounded-lg border-l-4 border-red-500">
+                                        <div class="flex items-center justify-between p-3 bg-red-50 rounded-lg border-l-4 border-red-500">
                                             <div>
                                                 <p class="font-medium text-gray-800">{{ $product->name }}</p>
-                                                <p class="text-sm text-gray-500">
-                                                    {{ $product->category->name ?? 'Sans catégorie' }}</p>
+                                                <p class="text-sm text-gray-500">{{ $product->category->name ?? 'Sans catégorie' }}</p>
                                             </div>
                                             <div class="text-right">
                                                 <p class="font-bold text-red-600">{{ $product->stock_quantity }}</p>
-                                                <p class="text-xs text-gray-400">Seuil:
-                                                    {{ $product->alert_threshold }}</p>
+                                                <p class="text-xs text-gray-400">Seuil: {{ $product->alert_threshold }}</p>
                                             </div>
                                         </div>
                                     @endforeach
@@ -519,35 +570,54 @@
     </div>
 
     <script>
+        // Revenue & Profit Chart
+        const revCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revCtx, {
+            type: 'line',
+            data: {
+                labels: @json($chartLabels),
+                datasets: [
+                    {
+                        label: 'Chiffre d\'affaires',
+                        data: @json($revenueData),
+                        borderColor: '#4F46E5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Bénéfice',
+                        data: @json($profitData),
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
         // Category Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        @php
-            $categoryData = \App\Models\Category::with('products')
-                ->get()
-                ->map(function ($cat) {
-                    return [
-                        'name' => $cat->name,
-                        'count' => $cat->products->count(),
-                    ];
-                });
-        @endphp
-        new Chart(categoryCtx, {
+        const catCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(catCtx, {
             type: 'doughnut',
             data: {
-                labels: @json($categoryData->pluck('name')),
+                labels: @json($salesByCategory->pluck('name')),
                 datasets: [{
-                    data: @json($categoryData->pluck('count')),
-                    backgroundColor: ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6']
+                    data: @json($salesByCategory->pluck('total_revenue')),
+                    backgroundColor: ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#06B6D4']
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
+                plugins: { legend: { position: 'bottom' } }
             }
         });
     </script>
