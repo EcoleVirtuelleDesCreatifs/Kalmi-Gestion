@@ -350,5 +350,6 @@
             }
         }
     </script>
+@include('components.loading')
 </body>
 </html>

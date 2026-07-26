@@ -228,5 +228,6 @@
             <p>{{ date('d/m/Y à H:i:s') }}</p>
         </div>
     </div>
+@include('components.loading')
 </body>
 </html>

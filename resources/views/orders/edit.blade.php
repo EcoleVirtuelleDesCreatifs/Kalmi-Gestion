@@ -281,5 +281,6 @@
             if (!this.checked) document.getElementById('deliveryAddress').value = '';
         });
     </script>
+@include('components.loading')
 </body>
 </html>

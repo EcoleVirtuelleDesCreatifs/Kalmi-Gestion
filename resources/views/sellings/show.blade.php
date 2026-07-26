@@ -62,5 +62,6 @@
             </main>
         </div>
     </div>
+@include('components.loading')
 </body>
 </html>

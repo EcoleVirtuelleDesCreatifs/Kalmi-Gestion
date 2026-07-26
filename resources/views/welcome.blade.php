@@ -172,5 +172,6 @@
                 </div>
             </div>
         </div>
-    </body>
+    @include('components.loading')
+</body>
 </html>

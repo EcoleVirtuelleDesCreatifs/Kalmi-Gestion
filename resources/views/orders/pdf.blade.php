@@ -162,5 +162,6 @@
         <p>Kalmi Gestion - Système de Gestion Commerciale</p>
         <p>Ce rapport est généré automatiquement et ne nécessite pas de signature.</p>
     </div>
+@include('components.loading')
 </body>
 </html>

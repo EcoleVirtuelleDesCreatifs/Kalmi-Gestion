@@ -306,5 +306,6 @@
         <p>Cette fiche est un document officiel. Toute modification doit être autorisée par la direction.</p>
         <p>En cas de problème, contacter : ___________________________</p>
     </div>
+@include('components.loading')
 </body>
 </html>
